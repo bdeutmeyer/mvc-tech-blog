@@ -1,7 +1,12 @@
-// const router = require('express').Router();
+const router = require('express').Router();
 
-// const dishRoutes = require('./dish-routes');
+const homeRoute = require('../home-route');
+const postRoutes = require('./post-routes');
+// const commentRoutes = require('./comment-routes')
 
-// router.use('/dish', dishRoutes);
+// Full route: /api/post || /api/comment
+router.use('/home', homeRoute);
+router.use('/post', postRoutes);
+// router.use('/comment', commentRoutes);
 
-// module.exports = router;
+module.exports = router;
