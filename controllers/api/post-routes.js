@@ -1,20 +1,38 @@
-// const router = require('express').Router();
-// const Dish = require('../../models/Dish');
+const router = require('express').Router();
+const { Post, Comment } = require('../../models');
 
-// // route to create/add a dish
-// router.post('/', async (req, res) => {
-//   try {
-//     const dishData = await Dish.create({
-//       dish_name: req.body.dish_name,
-//       description: req.body.description,
-//       guest_name: req.body.guest_name,
-//       has_nuts: req.body.has_nuts,
-//     });
-//     res.status(200).json(dishData);
-//   } catch (err) {
-//     res.status(400).json(err);
-//   }
-// });
+// Route to get one post - /api/post/:id
+router.get('/:id', async (req, res) => {
+    try{ 
+        const postData = await Post.findByPk(req.params.id, {
+            include: [{ model: Comment }],
+        });
+        if(!postData) {
+            res.status(404).json({message: 'There is no post with this id.'});
+            return;
+        }
+        res.status(200).json(postData)
+        // const post = postData.get({ plain: true });
+        // res.render('post', post);
+    } catch (err) {
+        res.status(500).json(err);
+    };     
+});
+
+// Route to create a new post
+router.post('/', async (req, res) => {
+  try {
+    const postData = await Post.create(req.body);
+    res.status(200).json(postData);
+    //Wrap below in a thing to take page to new id route
+    // const post = postData.get({ plain: true });
+    // res.render('post', post)
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
+
 
 // // According to MVC, what is the role of this action method?
 // // This action method is the Controller. It accepts input and sends data to the Model and the View.
@@ -43,4 +61,4 @@
 //   }
 // });
 
-// module.exports = router;
+module.exports = router;
