@@ -19,46 +19,66 @@ router.get('/:id', async (req, res) => {
     };     
 });
 
+// Route to create a new comment
+router.post('/:id', async (req, res) => {
+    try {
+        console.log(req.params.id)
+      const commentData = await Comment.create({
+          content: req.body.content,
+          user_id: req.body.user_id,
+          post_id: req.params.id
+      });
+      res.status(200).json(commentData);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
+
 // Route to create a new post
 router.post('/', async (req, res) => {
   try {
     const postData = await Post.create(req.body);
     res.status(200).json(postData);
-    //Wrap below in a thing to take page to new id route
-    // const post = postData.get({ plain: true });
-    // res.render('post', post)
   } catch (err) {
-    res.status(400).json(err);
+    res.status(500).json(err);
   }
 });
 
+// Route to update a post
+router.put('/:id', async (req, res) => {
+  try {
+    const post = await Post.update(
+      {
+        content: req.body.content
+      },
+      {
+        where: {
+          id: req.params.id,
+        },
+      }
+    );
+    res.status(200).json(post);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
-
-// // According to MVC, what is the role of this action method?
-// // This action method is the Controller. It accepts input and sends data to the Model and the View.
-// router.put('/:id', async (req, res) => {
-//   // Where is this action method sending the data from the body of the fetch request? Why?
-//   // It is sending the data to the Model so that one dish can be updated with new data in the database.
-//   try {
-//     const dish = await Dish.update(
-//       {
-//         dish_name: req.body.dish_name,
-//         description: req.body.description,
-//         guest_name: req.body.guest_name,
-//         has_nuts: req.body.has_nuts,
-//       },
-//       {
-//         where: {
-//           id: req.params.id,
-//         },
-//       }
-//     );
-//     // If the database is updated successfully, what happens to the updated data below?
-//     // The updated data (dish) is then sent back to handler that dispatched the fetch request.
-//     res.status(200).json(dish);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
+// Delete a post
+router.delete('/:id', async (req, res) => {
+    try {
+      const deletePost = await Post.destroy({
+        where: {
+          id: req.params.id,
+        },
+      });
+      if (!deletePost) {
+        res.status(404).json({ message: 'No post with this id!' });
+        return;
+      }
+      res.status(200).json(deletePost);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
 
 module.exports = router;
