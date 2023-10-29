@@ -1,5 +1,6 @@
 [
   {
+    "title": "Test message 1",
     "content": "This is only a test.",
     "user_id": 1
   }

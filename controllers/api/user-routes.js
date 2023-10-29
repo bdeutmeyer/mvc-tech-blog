@@ -1,40 +1,19 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
-const { User, Post } = require('../../models');
-
-// Dashboard page routes
-router.get('/:id', async (req, res) => {
-  //   if (!req.session.loggedIn) {
-  //     res.redirect('/login');
-  // } else { 
-  try {
-    const thisUsersPosts = await User.findByPk(req.params.id, {
-      include: [{ model: Post }]
-    });
-    if (!thisUsersPosts) {
-      res.status(404).json({ message: 'You do not have any posts yet!' });
-      return;
-    }
-    res.status(200).json(thisUsersPosts);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-
-  // }
-});
+const { User, Post, Comment } = require('../../models');
 
 // Sign up new user
 router.post('/signup', async (req, res) => {
   try {
-    const newUser = req.body;
-    newUser.password = await bcrypt.hash(req.body.password, 10);
-    
-    const newUserData = await User.create(newUser);
-
+    const newUserData = await User.create({
+      username: req.body.username,
+      password: req.body.password,
+    });
+    console.log(newUserData)
     req.session.save(() => {
       req.session.loggedIn = true;
 
-      res.status(200).json(dbUserData);
+      res.status(200).json(newUserData);
     });
   } catch (err) {
     console.log(err);
@@ -42,7 +21,7 @@ router.post('/signup', async (req, res) => {
   }
 });
 
-// Login
+// User login
 router.post('/login', async (req, res) => {
   try {
     const dbUserData = await User.findOne({
@@ -58,10 +37,7 @@ router.post('/login', async (req, res) => {
       return;
     }
 
-    const validPassword = await bcrypt.compare(
-      req.body.password,
-      dbUserData.password
-    );
+    const validPassword = await dbUserData.checkPassword(req.body.password);
 
     if (!validPassword) {
       res
@@ -82,7 +58,6 @@ router.post('/login', async (req, res) => {
   }
 });
 
-
 // Logout
 router.post('/logout', (req, res) => {
   if (req.session.loggedIn) {
@@ -91,6 +66,27 @@ router.post('/logout', (req, res) => {
     });
   } else {
     res.status(404).end();
+  }
+});
+
+// Dashboard page routes
+router.get('/:id', async (req, res) => {
+    if (!req.session.loggedIn) {
+      res.redirect('/login');
+  } else { 
+  try {
+    const thisUsersPosts = await User.findByPk(req.params.id, {
+      include: [{ model: Post }, {model: Comment}]
+    });
+    if (!thisUsersPosts) {
+      res.status(404).json({ message: 'You do not have any posts yet!' });
+      return;
+    }
+    res.status(200).json(thisUsersPosts);
+  } catch (err) {
+    res.status(500).json(err);
+  }``
+
   }
 });
 
