@@ -1,14 +1,35 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
-const User = require('../../models/User');
+const { User, Post } = require('../../models');
+
+// Dashboard page routes
+router.get('/:id', async (req, res) => {
+  //   if (!req.session.loggedIn) {
+  //     res.redirect('/login');
+  // } else { 
+  try {
+    const thisUsersPosts = await User.findByPk(req.params.id, {
+      include: [{ model: Post }]
+    });
+    if (!thisUsersPosts) {
+      res.status(404).json({ message: 'You do not have any posts yet!' });
+      return;
+    }
+    res.status(200).json(thisUsersPosts);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+
+  // }
+});
 
 // Sign up new user
-router.post('/', async (req, res) => {
+router.post('/signup', async (req, res) => {
   try {
-    const dbUserData = await User.create({
-      username: req.body.username,
-      password: req.body.password,
-    });
+    const newUser = req.body;
+    newUser.password = await bcrypt.hash(req.body.password, 10);
+    
+    const newUserData = await User.create(newUser);
 
     req.session.save(() => {
       req.session.loggedIn = true;
@@ -57,7 +78,6 @@ router.post('/login', async (req, res) => {
         .json({ user: dbUserData, message: 'You are now logged in!' });
     });
   } catch (err) {
-    console.log(err);
     res.status(500).json(err);
   }
 });
