@@ -1,27 +1,6 @@
 const router = require('express').Router();
 const { Post, Comment, User } = require('../../models');
 
-// Route to get one post - /api/post/:id
-router.get('/:id', async (req, res) => {
-    if (!req.session.loggedIn) {
-        res.redirect('/login');
-    } else {
-        try {
-            const postData = await Post.findByPk(req.params.id, {
-                include: [{ model: Comment }, { model: User} ],
-            });
-            if (!postData) {
-                res.status(404).json({ message: 'There is no post with this id.' });
-                return;
-            } 
-            // res.status(200).json(postData)
-            const post = postData.get({ plain: true });
-            res.render('post', post);
-        } catch (err) {
-            res.status(500).json(err);
-        };
-    };
-});
 
 // Route to create a new post
 router.post('/', async (req, res) => {
