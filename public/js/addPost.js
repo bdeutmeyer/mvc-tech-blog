@@ -1,14 +1,18 @@
 async function newPostHandler(event) {
     event.preventDefault();
+    
+    // const user_id = event.user.id;
 
-    const title = document.querySelector('#post-title').value;
-    const content = document.querySelector('#post-content').value;
+    const title = document.querySelector('#post-title').value.trim();
+    const content = document.querySelector('#post-content').value.trim();
+    
 
     const response = await fetch(`/api/post`, {
         method: 'POST',
         body: JSON.stringify({
             title,
-            content
+            content,
+            user_id
         }),
         headers: {
             'Content-Type': 'application/json',
