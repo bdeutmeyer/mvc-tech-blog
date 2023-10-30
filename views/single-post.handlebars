@@ -14,6 +14,18 @@
       Posted on:
       {{ format_date post.createdAt}}
     </p>
-    <p>Comments!!!!</p>
+    <p>Comments:</p>
+    {{#each post.comments}}
+    <div class="border border-black">
+      <p>{{content}}</p>
+      <p>- {{user.username}} on {{format_date createdAt}}</p>
+    </div>
+    {{/each}}
+    <form id="add-comment-form">
+      <input type="text" id="add-comment" placeholder="Add a comment">
+      <button type="submit">Submit</button>
+    </form>
   </div>
 </div>
+
+<script src="./js/add-comment.js"></script>

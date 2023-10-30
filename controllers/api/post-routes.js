@@ -1,6 +1,45 @@
 const router = require('express').Router();
 const { Post, Comment, User } = require('../../models');
 
+//Route to render Add Post page
+router.get('/', async (req, res) => {
+    if (!req.session.loggedIn) {
+        res.redirect('/login');
+    } else {
+        try {
+            res.render('new-post');
+        } catch (err) {
+            console.log(err);
+            res.status(500).json(err);
+        };
+    };
+});
+
+
+// Route to get one post - /:id
+router.get('/:id', async (req, res) => {
+    if (!req.session.loggedIn) {
+        res.redirect('/login');
+    } else {
+        try {
+            const postData = await Post.findByPk(req.params.id, {
+                include: [{ model: Comment }, { model: User} ],
+            });
+            if (!postData) {
+                res.status(404).json({ message: 'There is no post with this id.' });
+                return;
+            } 
+            // res.status(200).json(postData)
+            const post = postData.get({ plain: true });
+
+            // res.status(200).json(post)
+            res.render('single-post', { post, loggedIn: req.session.loggedIn });
+        } catch (err) {
+            console.log(err);
+            res.status(500).json(err);
+        };
+    };
+});
 
 // Route to create a new post
 router.post('/', async (req, res) => {
@@ -9,7 +48,7 @@ router.post('/', async (req, res) => {
     } else {
         try {
             const postData = await Post.create(req.body);
-            res.render('post', { postData })
+            res.render('new-post', { postData })
         } catch (err) {
             res.status(500).json(err);
         }
@@ -24,7 +63,7 @@ router.put('/:id', async (req, res) => {
     //     res.status(404).json({message: ''})
     } else {
         try {
-            const post = await Post.update(
+            const updatedPost = await Post.update(
                 {
                     title: req.body.title,
                     content: req.body.content
@@ -36,7 +75,8 @@ router.put('/:id', async (req, res) => {
                     },
                 }
             );
-            res.redirect(`/user`)
+            res.status(200).json(updatedPost);
+            // res.redirect(`/user`)
         } catch (err) {
             res.status(500).json(err);
         };

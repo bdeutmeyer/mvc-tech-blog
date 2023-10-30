@@ -1,6 +1,20 @@
 const router = require('express').Router();
-const bcrypt = require('bcrypt');
 const { User, Post, Comment } = require('../../models');
+
+//See all users (delete later - just for dev)
+router.get('/', async (req, res) => {
+  try {
+    const userData = await User.findAll({
+        include: [{ model: Post }, { model: Comment }],
+    });
+    const users = userData.map((user) => user.get({ plain: true }));
+    res.status(200).json(userData);
+  }
+ catch (err) { 
+    console.log(err);
+    res.status(500).json(err);
+  }
+})
 
 // Sign up new user
 router.post('/signup', async (req, res) => {

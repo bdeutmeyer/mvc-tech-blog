@@ -2,6 +2,7 @@
 
   {{#each posts as |post|}}
   <div class="col-md-4 border border-black">
+    <a href="/api/post/{{id}}">
     <h3>
       {{post.title}}
     </h3>
@@ -16,6 +17,7 @@
       Posted on:
       {{ format_date post.createdAt}}
     </p>
+    </a>
   </div>
   {{/each}}
 

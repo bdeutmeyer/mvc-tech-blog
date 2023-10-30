@@ -1,5 +1,3 @@
-// const router = require('express').Router();
-
 const loginFormHandler = async (event) => {
   event.preventDefault();
 
@@ -25,15 +23,8 @@ document
   .querySelector('.login-form')
   .addEventListener('submit', loginFormHandler);
 
-
-
-// const signUpBtn = document.getElementById('signUpInstead');
-// signUpBtn.addEventListener('click', function () {
-//   console.log('button clicked')
-//   router.route('/api/user/signup', (req, res => {
-//     res.render('signup');
-//     return;
-//   }))
-// });
-
-
+const signUpBtn = document.getElementById('signUpInstead');
+signUpBtn.addEventListener('click', function () {
+  window.location.href = '/signup';
+  return;
+});

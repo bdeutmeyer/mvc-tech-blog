@@ -23,10 +23,7 @@ document
   .querySelector('.signup-form')
   .addEventListener('submit', signupFormHandler);
 
-  // document.getElementById('logInInstead').addEventListener('click', function () {
-//   console.log('button clicked')
-//   router.route('/api/user/login', (req, res => {
-//     res.render('login');
-//     return;
-//   }))
-// })
+  document.getElementById('logInInstead').addEventListener('click', function () {
+    window.location.href = '/login';
+    return;
+  });
