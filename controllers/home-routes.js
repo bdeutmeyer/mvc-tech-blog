@@ -30,7 +30,7 @@ router.get('/login', (req, res) => {
     res.render('login');
 });
 
-//Render login page when routed here via navbar
+//Render signup page when routed here via navbar
 router.get('/signup', (req, res) => {
     if (req.session.loggedIn) {
       res.redirect('/');
@@ -38,6 +38,16 @@ router.get('/signup', (req, res) => {
     }
   
     res.render('signup');
+});
+
+//Render dashboard page when routed here via navbar
+router.get('/:id', (req, res) => {
+    if (req.session.loggedIn) {
+      res.redirect('/');
+      return;
+    }
+  
+    res.render('dashboard');
 });
 
 module.exports = router;
