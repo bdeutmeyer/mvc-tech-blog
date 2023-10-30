@@ -5,12 +5,12 @@ const { User, Post, Comment } = require('../../models');
 router.get('/', async (req, res) => {
   try {
     const userData = await User.findAll({
-        include: [{ model: Post }, { model: Comment }],
+      include: [{ model: Post }, { model: Comment }],
     });
     const users = userData.map((user) => user.get({ plain: true }));
     res.status(200).json(userData);
   }
- catch (err) { 
+  catch (err) {
     console.log(err);
     res.status(500).json(err);
   }
@@ -85,23 +85,29 @@ router.post('/logout', (req, res) => {
 
 // Dashboard page routes
 router.get('/:id', async (req, res) => {
-    if (!req.session.loggedIn) {
-      res.redirect('/login');
-  } else { 
-  try {
-    const thisUsersPosts = await User.findByPk(req.params.id, {
-      include: [{ model: Post }, {model: Comment}]
-    });
-    if (!thisUsersPosts) {
-      res.status(404).json({ message: 'You do not have any posts yet!' });
-      return;
-    }
-    res.status(200).json(thisUsersPosts);
-  } catch (err) {
-    res.status(500).json(err);
-  }``
+  // if (!req.session.loggedIn) {
+  //   res.redirect('/login');
+  // } else {
+    try {
+      const thisUsersPosts = await User.findByPk(req.params.id, {
+        include: [{ model: Post }, { model: Comment }]
+      });
+      if (!thisUsersPosts) {
+        res.status(404).json({ message: 'You do not have any posts yet!' });
+        return;
+      }
+      const userPosts = thisUsersPosts.posts;
+      const userPostMap = userPosts.map((post) => post.get({ plain: true }));
 
-  }
+      // res.status(200).json(userPostMap);
+      res.render('dashboard', { 
+        userPostMap
+        // loggedIn: req.session.loggedIn,
+       });
+    } catch (err) {
+      res.status(500).json(err);
+    };
+  // };
 });
 
 module.exports = router;

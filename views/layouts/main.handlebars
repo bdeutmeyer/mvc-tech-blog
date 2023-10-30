@@ -21,11 +21,11 @@
             </li>
             {{#if loggedIn}}
             <li class="nav-item">
-              <a class="nav-link" href="/api/user/{{id}}">Dashboard</a>
+              <a class="nav-link" href="/api/{{id}}">Dashboard</a>
             </li>
             {{else}}
             <li class="nav-item">
-              <a class="nav-link" href="/api/user/login">Dashboard</a>
+              <a class="nav-link" href="/login">Dashboard</a>
             </li>
             {{/if}}
             {{#if loggedIn}}
@@ -34,7 +34,7 @@
             </li>
             {{else}}
             <li class="nav-item">
-              <a id="login" class="nav-link" href="/api/user/login">Login</a>
+              <a id="login" class="nav-link" href="/login">Login</a>
             </li>
             {{/if}}
           </ul>

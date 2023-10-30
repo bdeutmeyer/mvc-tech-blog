@@ -1,4 +1,29 @@
+<div class="">
 
+  {{#each userPostMap as |post|}}
+  <div class="col-md-4 border border-black">  
+    <h3>
+      {{post.title}}
+    </h3>
+    <p>
+      {{post.content}}
+    </p>
+    <p class="">
+      Author:
+      {{post.user.username}}
+    </p>
+    <p>
+      Posted on:
+      {{ format_date post.createdAt}}
+    </p>
+    <button id="update-post">Update post</button>
+    <button id="delete-post">Delete post</button>
+  </div>
+  <div>
+  </div>
+  {{/each}}
 
+</div>
 
-<script src="/js/add-post.js"></script>
+<script src="/js/addEditDeletePost
+.js"></script>
