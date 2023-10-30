@@ -1,6 +1,6 @@
 <div class="">
-
-  {{#each userPostMap as |post|}}
+<button id="create-post">Write a new post</button>
+  {{#each posts as |post|}}
   <div class="col-md-4 border border-black">  
     <h3>
       {{post.title}}
@@ -25,5 +25,4 @@
 
 </div>
 
-<script src="/js/addEditDeletePost
-.js"></script>
+<script src="/js/editDeletePost.js"></script>

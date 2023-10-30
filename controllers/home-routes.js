@@ -41,13 +41,15 @@ router.get('/signup', (req, res) => {
 });
 
 //Render dashboard page when routed here via navbar
-router.get('/:id', (req, res) => {
-    if (req.session.loggedIn) {
-      res.redirect('/');
-      return;
-    }
+// router.get('/dashboard', (req, res) => {
+//     if (req.session.loggedIn) {
+//       res.redirect('/dashboard');
+//       return;
+//     }
   
-    res.render('dashboard');
-});
+//     res.render('dashboard');
+// });
 
 module.exports = router;
+
+//withauth

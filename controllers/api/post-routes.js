@@ -48,6 +48,7 @@ router.post('/', async (req, res) => {
     } else {
         try {
             const postData = await Post.create(req.body);
+            console.log(req.body)
             res.render('new-post', { postData })
         } catch (err) {
             res.status(500).json(err);
