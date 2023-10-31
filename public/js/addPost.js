@@ -3,7 +3,6 @@ const newPostHandler = async (event) => {
 
     const title = document.getElementById('post-title').value.trim();
     const content = document.getElementById('post-content').value.trim();
-  
 
     if (title && content) {
         const response = await fetch(`/api/post`, {
@@ -18,7 +17,7 @@ const newPostHandler = async (event) => {
         });
 
         if (response.ok) {
-            document.location.replace('/dashboard');
+            document.location.replace('/');
         } else {
             alert('Failed to add post');
         }

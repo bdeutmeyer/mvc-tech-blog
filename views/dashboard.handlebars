@@ -1,28 +1,13 @@
 <div class="">
-<button id="create-post">Write a new post</button>
-  {{#each posts as |post|}}
-  <div class="col-md-4 border border-black">  
-    <h3>
-      {{post.title}}
-    </h3>
-    <p>
-      {{post.content}}
-    </p>
-    <p class="">
-      Author:
-      {{post.user.username}}
-    </p>
-    <p>
-      Posted on:
-      {{ format_date post.createdAt}}
-    </p>
-    <button data-id="{{post.id}}" id="update-post">Update post</button>
-    <button data-id="{{post.id}}" id="delete-post">Delete post</button>
-  </div>
-  <div>
-  </div>
-  {{/each}}
+<button onclick="getPostForm(show-form)" id="create-post">Write a new post</button>
+<div id="show-form" data-state="hidden">
+{{#if data-state="hidden"}}
+  {{>dashboard-details}}
+{{else }}
+{{>new-post}}
+{{/if}}
+</div>
 
 </div>
 
-<script src="/js/createEditDeletePost.js"></script>
+<script src="/public/js/createPost.js"></script>

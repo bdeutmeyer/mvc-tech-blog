@@ -1,11 +1,9 @@
 const router = require('express').Router();
 const { Post, Comment } = require('../../models');
+const withAuth = require('../../utils/auth');
 
 // Route to update a comment
-router.put('/:id', async (req, res) => {
-    // if (!req.session.loggedIn) {
-    //     res.redirect('/login');
-    //   } else {
+router.put('/:id', withAuth, async (req, res) => {
   try {
     const post = await Comment.update(
       {
@@ -21,14 +19,10 @@ router.put('/:id', async (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   }
-  //}
 });
 
 // Delete a comment
-router.delete('/:id', async (req, res) => {
-    // if (!req.session.loggedIn) {
-    //     res.redirect('/login');
-    //   } else {
+router.delete('/:id', withAuth, async (req, res) => {
     try {
       const deleteComment = await Comment.destroy({
         where: {
@@ -43,7 +37,6 @@ router.delete('/:id', async (req, res) => {
     } catch (err) {
       res.status(500).json(err);
     }
-    //}
   });
 
 module.exports = router;
