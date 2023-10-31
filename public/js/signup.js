@@ -1,3 +1,4 @@
+console.log("hello");
 const signupFormHandler = async (event) => {
     event.preventDefault();
   
@@ -12,7 +13,8 @@ const signupFormHandler = async (event) => {
       });
   
       if (response.ok) {
-        document.location.replace('/');
+        // document.location.replace('/');
+        console.log('Signed up')
       } else {
         alert('Failed to sign up.');
       }
@@ -23,7 +25,8 @@ document
   .querySelector('.signup-form')
   .addEventListener('submit', signupFormHandler);
 
-  document.getElementById('logInInstead').addEventListener('click', function () {
-    window.location.href = '/login';
-    return;
-  });
+  // document.getElementById('logInInstead').addEventListener('click', function () {
+  //   // window.location.href = '/login';
+  //   console.log('rerouting to login')
+  //   return;
+  // });

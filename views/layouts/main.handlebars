@@ -11,7 +11,7 @@
 
 <body>
   <div class="">
-    <header class="">
+    {{!-- <header class="">
       <h1>MVC Tech Blog</h1>
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
@@ -30,7 +30,7 @@
             {{/if}}
             {{#if loggedIn}}
             <li class="nav-item">
-              <a id="logout" class="nav-link" href="/api/user/logout">Logout</a>
+              <a id="logout" class="nav-link" href="#">Logout</a>
             </li>
             {{else}}
             <li class="nav-item">
@@ -40,14 +40,14 @@
           </ul>
         </div>
       </nav>
-    </header>
+    </header> --}}
     <main class="container container-fluid mt-5">
       {{{ body }}}
     </main>
   </div>
-  {{#if loggedIn}}
+  {{!-- {{#if loggedIn}}
   <script src="/js/logout.js"></script>
-  {{/if}}
+  {{/if}} --}}
 </body>
 
 </html>

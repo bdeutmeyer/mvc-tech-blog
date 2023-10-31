@@ -17,7 +17,8 @@ const addComment = async (event) => {
         });
 
         if (response.ok) {
-            location.replace(location.href);
+            // location.replace(location.href);
+            console.log(id)
         }
     }
 }
