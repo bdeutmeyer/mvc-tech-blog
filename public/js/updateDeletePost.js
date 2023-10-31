@@ -20,10 +20,28 @@ async function editFormHandler(event) {
     });
   
     if (response.ok) {
-      document.location.replace(`/dashboard`);
+      document.location.replace(`/`);
     } else {
       alert('Failed to edit post');
     }
   }
+  
+  const deletePost = async (event) => {
+    if (event.target.hasAttribute('data-id')) {
+      const id = event.target.getAttribute('data-id');
+  
+      const response = await fetch(`/api/post/${id}`, {
+        method: 'DELETE',
+      });
+  
+      if (response.ok) {
+        document.location.replace('/dashboard');
+      } else {
+        alert('Failed to delete post');
+      }
+    }
+  };
+  
+  document.getElementById('delete-post').addEventListener('click', deletePost);
   
   document.querySelector('.edit-post-form').addEventListener('submit', editFormHandler);

@@ -41,8 +41,7 @@ router.get('/:id', withAuth, async (req, res) => {
   };
 });
 
-
-// Render dashboard page when routed here via navbar if logged in, render user-specific info
+// Render dashboard page when routed here if logged in, render user-specific info
 router.get('/dashboard', async (req, res) => {
     try {
 
