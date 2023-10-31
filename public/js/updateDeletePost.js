@@ -20,7 +20,8 @@ async function editFormHandler(event) {
     });
   
     if (response.ok) {
-      document.location.replace(`/`);
+      // document.location.replace(`/`);
+      console.log('edited post')
     } else {
       alert('Failed to edit post');
     }
@@ -35,7 +36,8 @@ async function editFormHandler(event) {
       });
   
       if (response.ok) {
-        document.location.replace('/dashboard');
+        // document.location.replace('/dashboard');
+        console.log('post deleted')
       } else {
         alert('Failed to delete post');
       }

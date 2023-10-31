@@ -32,6 +32,7 @@ router.get('/:id', withAuth, async (req, res) => {
       }
       // res.status(200).json(postData)
       const post = postData.get({ plain: true });
+      console.log(post, req.session);
 
       // res.status(200).json(post)
       res.render('single-post', { post, loggedIn: req.session.loggedIn });
@@ -75,25 +76,28 @@ router.get('/create', async (req, res) => {
 });
 
 //Route to render Update Post page
-router.get('/update', withAuth, async (req, res) => {
-  try {
-      res.render('edit-post', {
-        loggedIn: true,
-      });
-  } catch (err) {
-      console.log(err);
-      res.status(500).json(err);
-  };
-});
+// router.get('/update', withAuth, async (req, res) => {
+//   try {
+//       res.render('edit-post', {
+//         loggedIn: true,
+//       });
+//   } catch (err) {
+//       console.log(err);
+//       res.status(500).json(err);
+//   };
+// });
 
 //Render login page when routed here via navbar
-router.get('/login', (req, res) => {
-  if (req.session.loggedIn) {
-    res.redirect('/');
-    return;
+router.get('/login', async (req, res) => {
+  try {
+    if (req.session.loggedIn) {
+      res.redirect('/');
+      return;
+    }
+    res.render('login');
+  } catch (err) {
+    console.log(err)
   }
-
-  res.render('login');
 });
 
 //Render signup page when routed here via navbar
