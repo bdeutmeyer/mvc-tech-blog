@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
 });
 
 // Route to get one post - /:id
-router.get('/:id', withAuth, async (req, res) => {
+router.get('/post/:id', withAuth, async (req, res) => {
   try {
       const postData = await Post.findByPk(req.params.id, {
           include: [{ model: Comment }, { model: User }],
@@ -75,17 +75,17 @@ router.get('/create', async (req, res) => {
   };
 });
 
-//Route to render Update Post page
-// router.get('/update', withAuth, async (req, res) => {
-//   try {
-//       res.render('edit-post', {
-//         loggedIn: true,
-//       });
-//   } catch (err) {
-//       console.log(err);
-//       res.status(500).json(err);
-//   };
-// });
+// Route to render Update Post page
+router.get('/update', withAuth, async (req, res) => {
+  try {
+      res.render('edit-post', {
+        loggedIn: true,
+      });
+  } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+  };
+});
 
 //Render login page when routed here via navbar
 router.get('/login', async (req, res) => {
