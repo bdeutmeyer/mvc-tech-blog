@@ -19,14 +19,10 @@ router.get('/', async (req, res) => {
 // Sign up new user
 router.post('/signup', async (req, res) => {
   try {
-    const newUserData = await User.create({
-      username: req.body.username,
-      password: req.body.password,
-    });
-    console.log(newUserData)
+    const newUserData = await User.create(req.body);
     req.session.save(() => {
+      req.session.user_id = newUserData.id;
       req.session.loggedIn = true;
-
       res.status(200).json(newUserData);
     });
   } catch (err) {
@@ -43,14 +39,12 @@ router.post('/login', async (req, res) => {
         username: req.body.username,
       },
     });
-
     if (!dbUserData) {
       res
         .status(400)
         .json({ message: 'Incorrect username or password. Please try again!' });
       return;
     }
-//req.session.save
     const validPassword = await dbUserData.checkPassword(req.body.password);
 
     if (!validPassword) {
@@ -61,11 +55,10 @@ router.post('/login', async (req, res) => {
     }
 
     req.session.save(() => {
+      req.session.user_id = dbUserData.id;
       req.session.loggedIn = true;
-
-      res
-        .status(200)
-        .json({ user: dbUserData, message: 'You are now logged in!' });
+      
+      res.json({ user: dbUserData, message: 'You are now logged in!' });
     });
   } catch (err) {
     res.status(500).json(err);
@@ -83,31 +76,5 @@ router.post('/logout', (req, res) => {
   }
 });
 
-// Dashboard page routes
-router.get('/:id', async (req, res) => {
-  // if (!req.session.loggedIn) {
-  //   res.redirect('/login');
-  // } else {
-    try {
-      const thisUsersPosts = await User.findByPk(req.params.id, {
-        include: [{ model: Post }, { model: Comment }]
-      });
-      if (!thisUsersPosts) {
-        res.status(404).json({ message: 'You do not have any posts yet!' });
-        return;
-      }
-      const userPosts = thisUsersPosts.posts;
-      const userPostMap = userPosts.map((post) => post.get({ plain: true }));
-
-      // res.status(200).json(userPostMap);
-      res.render('dashboard', { 
-        userPostMap
-        // loggedIn: req.session.loggedIn,
-       });
-    } catch (err) {
-      res.status(500).json(err);
-    };
-  // };
-});
 
 module.exports = router;

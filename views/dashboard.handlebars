@@ -16,8 +16,8 @@
       Posted on:
       {{ format_date post.createdAt}}
     </p>
-    <button id="update-post">Update post</button>
-    <button id="delete-post">Delete post</button>
+    <button data-id="{{post.id}}" id="update-post">Update post</button>
+    <button data-id="{{post.id}}" id="delete-post">Delete post</button>
   </div>
   <div>
   </div>
@@ -25,4 +25,4 @@
 
 </div>
 
-<script src="/js/editDeletePost.js"></script>
+<script src="/js/createEditDeletePost.js"></script>
