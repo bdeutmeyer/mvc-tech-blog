@@ -2,7 +2,7 @@ const deletePost = async (event) => {
   if (event.target.hasAttribute('data-id')) {
     const id = event.target.getAttribute('data-id');
 
-    const response = await fetch(`/dashboard/delete/${id}`, {
+    const response = await fetch(`/api/post/delete/${id}`, {
       method: 'DELETE',
     });
 
@@ -14,8 +14,10 @@ const deletePost = async (event) => {
     }
   }
 };
-// const deleteBtn = document.querySelectorAll('.delete-post')
-// deleteBtn.addEventListener('click', deletePost);
 
-// document.getElementById('update-post').addEventListener('click', renderUpdateForm)
+const renderUpdateForm = async (event) => {
+  if (event.target.hasAttribute('data-id')) {
+    const id = event.target.getAttribute('data-id');
 
+document.location.replace(`/dashboard/update/${id}`)
+}};

@@ -1,8 +1,13 @@
 [
   {
-    "title": "Test message 1",
-    "content": "This is only a test.",
+    "title": "Tech is cool",
+    "content": "But it can be so frustrating sometimes!",
     "user_id": 1
+  },
+  {
+    "title": "Learning to code",
+    "content": "Isn't it crazy how you can know so much and so little at the same time??",
+    "user_id": 2
   }
 ]
 
