@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { User, Post, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
+// /dashboard - render dashboard page
 router.get('/', withAuth, async (req, res) => {
   try {
     const postData = await Post.findAll({
@@ -22,7 +23,8 @@ router.get('/', withAuth, async (req, res) => {
   }
 });
 
-router.get('/update/:id', async (req, res) => {
+// /dashboard/update/:id - render update form
+router.get('/update/:id', withAuth, async (req, res) => {
   try {
     const postToEdit = await Post.findByPk(req.params.id);
     const post = postToEdit.map((postedit) => postedit.get({ plain: true }));

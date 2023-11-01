@@ -1,3 +1,4 @@
+//Delete post
 const deletePost = async (event) => {
   if (event.target.hasAttribute('data-id')) {
     const id = event.target.getAttribute('data-id');
@@ -15,6 +16,7 @@ const deletePost = async (event) => {
   }
 };
 
+//Render update form
 const renderUpdateForm = async (event) => {
   if (event.target.hasAttribute('data-id')) {
     const id = event.target.getAttribute('data-id');

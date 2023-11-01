@@ -31,12 +31,10 @@ router.get('/post/:id', withAuth, async (req, res) => {
           return;
       }
 
-      // res.status(200).json(postData)
       const post = postData.get({ plain: true });
       console.log(post, req.session);
 
       res.status(200).json(post)
-      // res.render('single-post', { post, loggedIn: req.session.loggedIn });
   } catch (err) {
       console.log(err);
       res.status(500).json(err);

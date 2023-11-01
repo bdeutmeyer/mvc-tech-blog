@@ -35,10 +35,9 @@ router.get('/singlepost/:id', withAuth, async (req, res) => {
             res.status(404).json({ message: 'There is no post with this id.' });
             return;
         }
-        // res.status(200).json(postData)
+
         const post = postData.get({ plain: true });
 
-        // res.status(200).json(post)
         res.render('single-post', { 
             post,
             loggedIn: req.session.loggedIn
@@ -65,7 +64,6 @@ router.put('/update/:id', withAuth, async (req, res) => {
                 },
             }
         );
-        // res.status(200).json(updatedPost);
         res.redirect(`/user`)
     } catch (err) {
         res.status(500).json(err);
@@ -93,7 +91,6 @@ router.delete('/delete/:id', withAuth, async (req, res) => {
 
 // Route to create a new comment
 router.post('/addcomment/:id', withAuth, async (req, res) => {
-    
     try {
         const post_id = parseInt(req.params.id);
         console.log(post_id)

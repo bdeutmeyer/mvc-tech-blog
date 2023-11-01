@@ -1,3 +1,4 @@
+// Fetch on update form
 async function editFormHandler(event) {
     event.preventDefault();
   
