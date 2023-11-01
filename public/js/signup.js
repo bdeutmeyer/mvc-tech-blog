@@ -25,8 +25,8 @@ document
   .querySelector('.signup-form')
   .addEventListener('submit', signupFormHandler);
 
-  // document.getElementById('logInInstead').addEventListener('click', function () {
-  //   // window.location.href = '/login';
-  //   console.log('rerouting to login')
-  //   return;
-  // });
+  document.getElementById('logInInstead').addEventListener('click', function () {
+    window.location.href = '/login';
+    console.log('rerouting to login')
+    return;
+  });

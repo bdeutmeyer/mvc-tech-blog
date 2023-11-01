@@ -2,21 +2,31 @@ const router = require('express').Router();
 const { Post, Comment, User } = require('../../models');
 const withAuth = require('../../utils/auth');
 
-// Route to submit new post form
+// Route to add new post to database
 router.post('/', withAuth, async (req, res) => {
     try {
         const postData = await Post.create({
             ...req.body,
             user_id: req.session.user_id,
         });
-        res.status(200).json(postData);
+        // Use user id to fetch username
+        const postWithUsername = await Post.findByPk(postData.id, {
+            include: [
+                {
+                    model: User,
+                    attributes: ['username'],
+                },
+            ],
+        });
+
+        res.status(200).json(postWithUsername);
     } catch (err) {
         res.status(500).json(err);
     }
 });
 
 // Route to get one post - /:id
-router.get('/:id', withAuth, async (req, res) => {
+router.get('/singlepost/:id', withAuth, async (req, res) => {
     try {
         const postData = await Post.findByPk(req.params.id, {
             include: [{ model: Comment }, { model: User }],
@@ -29,9 +39,11 @@ router.get('/:id', withAuth, async (req, res) => {
         const post = postData.get({ plain: true });
 
         // res.status(200).json(post)
-        res.render('single-post', { post
-            // loggedIn: req.session.loggedIn
-         });
+        res.render('single-post', { 
+            post,
+            loggedIn: req.session.loggedIn
+        }
+        );
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
@@ -39,7 +51,7 @@ router.get('/:id', withAuth, async (req, res) => {
 });
 
 // Route to update a post
-router.put('/:id', withAuth, async (req, res) => {
+router.put('/update/:id', withAuth, async (req, res) => {
     try {
         const updatedPost = await Post.update(
             {
@@ -53,8 +65,8 @@ router.put('/:id', withAuth, async (req, res) => {
                 },
             }
         );
-        res.status(200).json(updatedPost);
-        // res.redirect(`/user`)
+        // res.status(200).json(updatedPost);
+        res.redirect(`/user`)
     } catch (err) {
         res.status(500).json(err);
     };
@@ -62,7 +74,7 @@ router.put('/:id', withAuth, async (req, res) => {
 });
 
 // Delete a post
-router.delete('/:id', withAuth, async (req, res) => {
+router.delete('/delete/:id', withAuth, async (req, res) => {
     try {
         const deletePost = await Post.destroy({
             where: {
@@ -80,16 +92,29 @@ router.delete('/:id', withAuth, async (req, res) => {
 });
 
 // Route to create a new comment
-router.post('/:id', withAuth, async (req, res) => {
+router.post('/addcomment/:id', withAuth, async (req, res) => {
+    
     try {
+        const post_id = parseInt(req.params.id);
+        console.log(post_id)
+        console.log(req.body.content)
+        console.log(req.session.user_id)
         const commentData = await Comment.create({
             content: req.body.content,
             user_id: req.session.user_id,
-            post_id: req.params.id
+            post_id: post_id
         });
-        res.status(200).json(commentData);
+        const commentWithUsername = await Comment.findByPk(commentData.id, {
+            include: [
+                {
+                    model: User,
+                  attributes: ['username'],
+                },
+            ]
+        });
+        res.status(200).json(commentWithUsername);
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json(err); 
     };
 });
 

@@ -5,7 +5,7 @@ const newPostHandler = async (event) => {
     const content = document.getElementById('post-content').value.trim();
 
     if (title && content) {
-        const response = await fetch(`/api/post`, {
+        const response = await fetch(`/api/post/`, {
             method: 'POST',
             body: JSON.stringify({
                 title,
@@ -17,7 +17,7 @@ const newPostHandler = async (event) => {
         });
 
         if (response.ok) {
-            // document.location.replace('/');
+            document.location.replace('/dashboard');
             console.log('New post created')
         } else {
             alert('Failed to add post');

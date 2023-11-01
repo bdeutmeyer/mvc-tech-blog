@@ -30,12 +30,13 @@ router.get('/post/:id', withAuth, async (req, res) => {
           res.status(404).json({ message: 'There is no post with this id.' });
           return;
       }
+
       // res.status(200).json(postData)
       const post = postData.get({ plain: true });
       console.log(post, req.session);
 
-      // res.status(200).json(post)
-      res.render('single-post', { post, loggedIn: req.session.loggedIn });
+      res.status(200).json(post)
+      // res.render('single-post', { post, loggedIn: req.session.loggedIn });
   } catch (err) {
       console.log(err);
       res.status(500).json(err);
@@ -55,7 +56,7 @@ router.get('/dashboard', async (req, res) => {
       const user = userData.get({ plain: true });
 
       res.render('dashboard', {
-        user,
+        ...user,
         loggedIn: true,
       });
     } catch (err) {
