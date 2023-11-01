@@ -1,5 +1,5 @@
 <div class="">
-  <div class="col-md-4 border border-black">
+  <div class="col-md-4 col-lg-10 border border-black">
     <h3>
       {{post.title}}
     </h3>
@@ -15,10 +15,10 @@
       {{ format_date post.createdAt}}
     </p>
     <p>Comments:</p>
-    {{#each post.comments}}
+    {{#each post.comments as |comment|}}
     <div class="border border-black">
-      <p>{{content}}</p>
-      <p>- {{user.username}} on {{format_date createdAt}}</p>
+      <p>{{comment.content}}</p>
+      <p>- {{comment.user.username}} on {{format_date comment.createdAt}}</p>
     </div>
     {{/each}}
     <form id="add-comment-form">
