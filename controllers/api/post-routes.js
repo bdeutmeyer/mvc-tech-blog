@@ -89,7 +89,7 @@ router.delete('/delete/:id', withAuth, async (req, res) => {
     } catch (err) {
         res.status(500).json(err);
     };
-});
+  });
 
 // Route to create a new comment
 router.post('/addcomment/:id', withAuth, async (req, res) => {

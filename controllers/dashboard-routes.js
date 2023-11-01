@@ -10,21 +10,30 @@ router.get('/', withAuth, async (req, res) => {
         user_id: req.session.user_id
       } 
     });
-console.log(postData)
     const posts = postData.map((userPosts) => userPosts.get({ plain: true }));
-console.log(posts)
-    // res.render('dashboard', 
-    // { ...posts,
-    // loggedIn: true
-    // });
-    res.status(200).json(postData)
+    res.render('dashboard', 
+    { ...posts,
+    loggedIn: true
+    });
   }
   catch (err) {
     console.log(err);
     res.status(500).json(err);
   }
-})
+});
 
-  // router.put, router.delete
+router.get('/update/:id', async (req, res) => {
+  try {
+    const postToEdit = await Post.findByPk(req.params.id);
+    const post = postToEdit.map((postedit) => postedit.get({ plain: true }));
+    res.render('edit-post', 
+    { post,
+      loggedIn: true
+    })
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 
 module.exports = router;

@@ -15,7 +15,9 @@ const deletePost = async (event) => {
   }
 };
 
-document.getElementById('delete-post').addEventListener('click', deletePost);
+const renderUpdateForm = async (event) => {
+  if (event.target.hasAttribute('data-id')) {
+    const id = event.target.getAttribute('data-id');
 
-document.getElementById('update-post').addEventListener('click', renderUpdateForm)
-
+document.location.replace(`/dashboard/update/${id}`)
+}};
