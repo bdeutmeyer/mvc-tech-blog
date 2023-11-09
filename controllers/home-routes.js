@@ -41,27 +41,6 @@ router.get('/post/:id', withAuth, async (req, res) => {
   };
 });
 
-// Render dashboard page when routed here if logged in, render user-specific info
-router.get('/dashboard', async (req, res) => {
-    try {
-
-      // Find the logged in user based on the session ID
-      const userData = await User.findByPk(req.session.user_id, {
-        attributes: { exclude: ['password'] },
-        include: [{ model: Post }, { model: Comment }],
-      });
-
-      const user = userData.get({ plain: true });
-
-      res.render('dashboard', {
-        ...user,
-        loggedIn: true,
-      });
-    } catch (err) {
-      res.status(500).json(err);
-    }
-});
-
 //Route to render Add Post page
 router.get('/create', async (req, res) => {
   try {

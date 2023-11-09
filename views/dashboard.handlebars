@@ -17,6 +17,8 @@
                 Posted on:
                 {{ format_date post.createdAt}}
             </p>
+
+            
             <button data-id="{{post.id}}" id="update-post" onclick="renderUpdateForm(event)">Update post</button>
             <button data-id="{{post.id}}" class="delete-post" onclick="deletePost(event)" >Delete post</button>
         </div>

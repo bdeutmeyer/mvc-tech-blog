@@ -29,7 +29,10 @@ router.post('/', withAuth, async (req, res) => {
 router.get('/singlepost/:id', withAuth, async (req, res) => {
     try {
         const postData = await Post.findByPk(req.params.id, {
-            include: [{ model: Comment }, { model: User }],
+            include: [{ model: Comment,
+                include: { model: User }
+            
+            }],
         });
         if (!postData) {
             res.status(404).json({ message: 'There is no post with this id.' });
@@ -37,7 +40,7 @@ router.get('/singlepost/:id', withAuth, async (req, res) => {
         }
 
         const post = postData.get({ plain: true });
-
+// res.status(200).json(post)
         res.render('single-post', { 
             post,
             loggedIn: req.session.loggedIn
