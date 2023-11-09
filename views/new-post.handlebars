@@ -1,18 +1,19 @@
-<div class="new-post">
+<div class="new-post container-fluid">
   <h2>
     Write a new post
   </h2>
-  <form class="new-post-form">
-    <label for="post-title">Post Title:</label>
+  <hr>
+  <form class="new-post-form bg-light p-2">
+    <label for="post-title" class="p-1">Post Title:</label>
     <br />
-    <textarea id="post-title" name="post-title" rows="2" cols="30"></textarea>
+    <textarea id="post-title" name="post-title" rows="2" cols="50" class="rounded p-2"></textarea>
     <br />
-    <label for="post-content">Post content:</label>
+    <label for="post-content" class="p-1">Post content:</label>
     <br />
-    <textarea id="post-content" name="post-content" rows="5" cols="30"></textarea>
+    <textarea id="post-content" name="post-content" rows="10" cols="50" class="rounded p-2"></textarea>
     <br />
     <br />
-    <button type="submit" value="Submit">
+    <button type="submit" value="Submit" class="btn btn-primary m-1">
       Submit
     </button>
   </form>

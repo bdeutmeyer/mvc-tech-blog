@@ -1,26 +1,26 @@
-<div class="">
-<button id="create-post">Write a new post</button>
+<div class="container-fluid">
+<button id="create-post" class="btn btn-primary m-3 center">Write a new post</button>
     <div>
         {{#each posts as |post|}}
-        <div class="col-md-4 col-lg-10 border border-black">
-            <h3>
+        <div class="col-md-4 col-lg-10 border border-black rounded m-3 bg-light">
+            <h3 class="p-2 bg-dark text-light">
                 {{post.title}}
             </h3>
-            <p>
+            <p class="p-2">
                 {{post.content}}
             </p>
-            <p class="">
+            <p class="p-2">
                 Author:
                 {{post.user.username}}
             </p>
-            <p>
+            <p class="p-2">
                 Posted on:
                 {{ format_date post.createdAt}}
             </p>
 
             
-            <button data-id="{{post.id}}" id="update-post" onclick="renderUpdateForm(event)">Update post</button>
-            <button data-id="{{post.id}}" class="delete-post" onclick="deletePost(event)" >Delete post</button>
+            <button data-id="{{post.id}}" id="update-post" class="btn btn-primary m-2" onclick="renderUpdateForm(event)">Update post</button>
+            <button data-id="{{post.id}}" id="delete-post" class="btn btn-primary m-2" onclick="deletePost(event)" >Delete post</button>
         </div>
         <div>
         </div>

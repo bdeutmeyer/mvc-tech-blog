@@ -1,29 +1,30 @@
 <div class="">
-  <div class="col-md-4 col-lg-10 border border-black">
-    <h3>
+  <div class="col-md-4 col-lg-10 border border-black rounded">
+    <h3 class="p-2 bg-dark text-white">
       {{post.title}}
     </h3>
-    <p>
+    <p class="m-2">
       {{post.content}}
     </p>
-    <p class="">
+    <p class="m-2">
       Author:
       {{post.user.username}}
     </p>
-    <p>
+    <p class="m-2">
       Posted on:
       {{ format_date post.createdAt}}
     </p>
-    <p>Comments:</p>
+    <hr>
+    <p class="m-2">Comments:</p>
     {{#each post.comments as |comment|}}
-    <div class="border border-black">
-      <p>{{comment.content}}</p>
-      <p>- {{comment.user.username}} on {{format_date comment.createdAt}}</p>
+    <div class="border border-black m-2 rounded">
+      <p class="p-1">{{comment.content}}</p>
+      <p class="p-1">- {{comment.user.username}} on {{format_date comment.createdAt}}</p>
     </div>
     {{/each}}
     <form id="add-comment-form">
-      <input type="text" id="add-comment" placeholder="Add a comment">
-      <button type="submit">Submit</button>
+      <input type="text" id="add-comment" placeholder="Add a comment" class="rounded m-2 p-1">
+      <button type="submit" class="btn btn-primary m-2">Submit</button>
     </form>
   </div>
 </div>

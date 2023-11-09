@@ -1,21 +1,18 @@
-<div class="">
+<div class="container-fluid">
 
   {{#each posts as |post|}}
-  <div class="col-md-4 col-lg-10 border border-black">
-    <a href="/api/post/singlepost/{{id}}">
-    <h3>
+  <div class="col-md-4 col-lg-10 border border-black rounded m-3 bg-light box-with-shadow">
+    <a href="/api/post/singlepost/{{id}}" class="text-decoration-none bg-light text-dark">
+    <h3 class="p-2 bg-dark text-light">
       {{post.title}}
     </h3>
-    <p>
+    <p class="p-1">
       {{post.content}}
     </p>
-    <p class="">
-      Author:
-      {{post.user.username}}
-    </p>
-    <p>
-      Posted on:
-      {{ format_date post.createdAt}}
+    <p class="p-1">
+      Author: {{post.user.username}}
+      <br>
+      Posted on: {{ format_date post.createdAt}}
     </p>
     </a>
   </div>
