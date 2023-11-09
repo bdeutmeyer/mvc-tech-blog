@@ -67,7 +67,7 @@ router.put('/update/:id', withAuth, async (req, res) => {
                 },
             }
         );
-        res.redirect(`/user`)
+        res.status(200).json(updatedPost)
     } catch (err) {
         res.status(500).json(err);
     };

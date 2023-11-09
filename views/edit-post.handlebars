@@ -2,18 +2,14 @@
   <h2>
     Edit post
   </h2>
-  <form class="edit-post-form">
+  <form id="edit-post-form">
     <label for="post-title">Post Title:</label>
     <br />
-    <textarea id="post-title" name="post-title" rows="2" cols="30">
-      {{post.title}}
-    </textarea>
+    <textarea id="post-title" name="post-title" rows="2" cols="30">{{post.title}}</textarea>
     <br />
     <label for="post-content">Post content:</label>
     <br />
-    <textarea id="post-content" name="post-content" rows="5" cols="30">
-      {{post.content}}
-    </textarea>
+    <textarea id="post-content" name="post-content" rows="5" cols="30">{{post.content}}</textarea>
     <br />
     <br />
     <button type="submit" value="Submit">
@@ -22,4 +18,4 @@
   </form>
 </div>
 
-<script src="/js/editDeletePost.js"></script>
+<script src="/js/updatePostFetch.js"></script>

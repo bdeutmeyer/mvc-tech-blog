@@ -13,4 +13,4 @@ https://howling-cat-95332-946fe14771a2.herokuapp.com/
 https://github.com/bdeutmeyer/mvc-tech-blog
 
 ## Credits
-So much of this code is pulled from previous class activities, especially the unit 15 miniproject.
+So much of this code is pulled from previous class activities, especially the unit 14 miniproject.

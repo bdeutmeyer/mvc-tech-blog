@@ -30,11 +30,12 @@ router.get('/', withAuth, async (req, res) => {
 router.get('/update/:id', withAuth, async (req, res) => {
   try {
     const postToEdit = await Post.findByPk(req.params.id);
-    const post = postToEdit.map((postedit) => postedit.get({ plain: true }));
+    const post = postToEdit.get({ plain: true });
     res.render('edit-post', 
     { post,
       loggedIn: true
     })
+    // res.status(200).json(post)
   } catch (err) {
     res.status(500).json(err);
   }
