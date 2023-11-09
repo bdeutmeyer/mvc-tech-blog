@@ -18,12 +18,12 @@
     <p class="m-2">Comments:</p>
     {{#each post.comments as |comment|}}
     <div class="border border-black m-2 rounded">
-      <p class="p-1">{{comment.content}}</p>
-      <p class="p-1">- {{comment.user.username}} on {{format_date comment.createdAt}}</p>
+      <p class="p-2">{{comment.content}}</p>
+      <p class="p-2">- {{comment.user.username}} on {{format_date comment.createdAt}}</p>
     </div>
     {{/each}}
-    <form id="add-comment-form">
-      <input type="text" id="add-comment" placeholder="Add a comment" class="rounded m-2 p-1">
+    <form id="add-comment-form" class="d-block">
+      <textarea name="commentInput" id="add-comment" placeholder="Add a comment" cols="50" rows="3" class="rounded m-2 p-2"></textarea>
       <button type="submit" class="btn btn-primary m-2">Submit</button>
     </form>
   </div>
